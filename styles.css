@@ -1,0 +1,84 @@
+h1{
+	background-color:hotpink;
+	color:black;
+	font-size:50px;
+	text-align:center;
+	padding:10px;
+}
+body{
+	background-image:linear-gradient(to bottom, darkslategrey, black 50% );
+	color:hotpink;
+	font-family:tahoma;
+	font-size:150%;
+	width:90%;
+	margin:auto;
+}
+nav a{
+	display:inline-block;
+	width:150px;
+	margin-right:10px;
+	padding:20px;
+	background-color:hotpink;
+	color:black;
+	border:5px solid red;
+	text-align:center;
+	border-radius:20px;
+}
+#current{
+	color:hotpink;
+	background-color:black;
+}
+nav{
+	text-align:center;
+	background-color:teal;
+	padding:10px;
+}
+
+p{
+	border:2px dashed red;
+	background-color:pink;
+	padding:10px;
+	color:crimson;
+}
+
+h2{
+	text-align:center;
+	background-image: linear-gradient(aliceblue, crimson);
+	padding:10px;
+	color:black;
+}
+h1, h2, p, nav {border-radius:5px;}
+img{margin-left:auto;
+margin-right:auto; 
+display:block;}
+
+@keyframes linkHover{
+	0%{background-image:linear-gradient(to top, crimson 0%, hotpink 0%, hotpink 100%);}
+	10%{background-image:linear-gradient(to top, crimson 0%, crimson 10%, hotpink 10%, hotpink 100%);}
+	20%{background-image:linear-gradient(to top, crimson 0%, crimson 20%, hotpink 20%, hotpink 100%);}
+	30%{background-image:linear-gradient(to top, crimson 0%, crimson 30%, hotpink 30%, hotpink 100%);}
+	40%{background-image:linear-gradient(to top, crimson 0%, crimson 40%, hotpink 40%, hotpink 100%);}
+	50%{background-image:linear-gradient(to top, crimson 0%, crimson 50%, hotpink 50%, hotpink 100%);}
+	60%{background-image:linear-gradient(to top, crimson 0%, crimson 60%, hotpink 60%, hotpink 100%);}
+	70%{background-image:linear-gradient(to top, crimson 0%, crimson 70%, hotpink 70%, hotpink 100%);}
+	80%{background-image:linear-gradient(to top, crimson 0%, crimson 80%, hotpink 80%, hotpink 100%);}
+	90%{background-image:linear-gradient(to top, crimson 0%, crimson 90%, hotpink 90%, hotpink 100%);}
+	100%{background-image:linear-gradient(to top,crimson 0%, crimson 100%, hotpink 100%);}
+	
+}
+@keyframes h1Banner{
+	from{background-color: hotpink;}
+	to {background-color: pink}
+
+}
+nav a:hover{
+	animation: linkHover 0.25s 1;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+}
+
+h1{
+	animation: h1Banner 2s infinite;
+	animation-timing-function: linear;
+	animation-direction: alternate;
+}
