@@ -106,18 +106,49 @@
 			
 		</style>
 		<script>
+			function getCookie(cname) {
+				let name = cname + "=";
+				let decodedCookie = decodeURIComponent(document.cookie);
+				let ca = decodedCookie.split(';');
+				for(let i = 0; i <ca.length; i++) {
+					let c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return 0;
+			}
+			function setCookie(cname, cvalue, exdays) {
+				const d = new Date();
+				d.setTime(d.getTime() + (exdays*24*60*60*1000));
+				let expires = "expires="+ d.toUTCString();
+				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			}
+		
+			var TCCount = getCookie('TCCount');
+			var FLCount = getCookie('FLCount');		
+		  
 			var TCCA="";
 			var FLCA=["","",""];
 			var TCAnsBox;
 			var FLAnsBoxes;
+			var TCStreakBox; 
+			var FLStreakBox; 
+			
 			function checkTC(){
 				if (TCAnsBox.value.replace(/\s/g, "") == TCCA){
 					TCAnsBox.className="correct";
+					TCCount = TCCount+1;
 				}
 				else{
 					TCAnsBox.className="incorrect";
+					TCCount = 0;
 				}				
-			
+				setCookie('TCCount', TCCount, 30);
+				TCStreakBox.innerHTML = TCCount;
 			}
 			function newTC(){
 				TCAnsBox.className="";
@@ -141,16 +172,25 @@
 				}		
 			
 			}
-			function checkFL(){				
+			function checkFL(){	
+				let c = 0
 				for (var i=0; i<3; i++){
 					if (FLAnsBoxes[i].value.replace(/\s/g, "") == FLCA[i]){
 						FLAnsBoxes[i].className="correct";
+						c++;
 					}
 					else{
 						FLAnsBoxes[i].className="incorrect";
 					}
-				}				
-			
+				}
+				if (c==3){
+					FLCount++;
+				}
+				else{
+					FLCount = 0;
+				}
+				setCookie('FLCount', FLCount, 30);
+				FLStreakBox.innerHTML = FLCount;
 			}
 			function newFL(){
 				for (var i=0; i<3; i++){
@@ -226,6 +266,7 @@
 		<button onclick="checkTC()">Check</button>
 		<button onclick="newTC()">New Question</button>
 		</div>
+		<div id="streak">Streak: <span id="TCCount"></span></div>
 		<div class="popup" onclick="popup('TCPopup')">Help!
 		  <span class="popuptext" id="TCPopup">Two's complement works the same as standard binary, except the highest column value becomes negative.<br><br>For 8-bit, start with the standard binary position values:<br> 128, 64, 32, 16, 8, 4, 2, 1<br><br>Then make the 128 negative, the rest stay positive:<br> -128, 64, 32, 16, 8, 4, 2, 1<br><br>If you're converting denary to binary, work out which of the numbers need to add together to make the target. Remember that 1111 1111 is -1, this can help for smaller numbers.<br><br>If you're converting binary to denary, then add together the position values for all the 1s.</span>
 		</div>
@@ -245,6 +286,7 @@
 		<button onclick="checkFL()">Check</button>
 		<button onclick="newFL()">New Question</button>
 		</div>
+		<div id="streak">Streak: <span id="FLCount"></span></div>
 		<div class="popup" onclick="popup('FLPopup')">Help!
 		  <span class="popuptext" id="FLPopup">
 		  The Sign is 1 for a negative number, 0 for a positive.<br><br>
@@ -260,6 +302,10 @@
 			newTC();
 			FLAnsBoxes = [document.getElementById("FLSignAnswer"),document.getElementById("FLMantissaAnswer"),document.getElementById("FLExponentAnswer")];
 			newFL();
+			TCStreakBox = document.getElementById('TCCount')
+			TCStreakBox.innerHTML = TCCount;
+			FLStreakBox = document.getElementById('FLCount')
+			FLStreakBox.innerHTML = FLCount;
 		</script>
 	</main>
 	</body>	
