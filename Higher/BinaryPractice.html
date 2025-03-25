@@ -197,7 +197,7 @@
 				
 				//console.log(FLCA);
 				output = output.replace(new RegExp("0+$"), "");
-				if (output.slice(-1)=="."){
+				if (output.endsWith(".")){
 					output = output+"0";
 				}
 				document.getElementById("FLNum").innerHTML = output;
