@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Binary Practice</title>
+		<style>
+			.correct{
+				background-color:green;
+			}
+			.incorrect{
+				background-color:red;
+			}
+		</style>
+		<script>
+			var TCCA="";
+			var FLCA=["","",""];
+			var TCAnsBox;
+			var FLAnsBoxes;
+			function checkTC(){
+				if (TCAnsBox.value.replace(/\s/g, "") == TCCA){
+					TCAnsBox.className="correct";
+				}
+				else{
+					TCAnsBox.className="incorrect";
+				}				
+			
+			}
+			function newTC(){
+				TCAnsBox.className="";
+				TCAnsBox.value="";
+				
+				let val = 0-(Math.floor((Math.random()*128) + 1));
+				let comp = 256+val;
+				let bin = comp.toString(2);
+				
+				document.getElementById("TCNum").innerHTML = ["value", val , "complement" , comp , "binary" , bin]
+				if (Math.random()>0.5){
+					document.getElementById("TCStart").innerHTML = "denary";
+					document.getElementById("TCNum").innerHTML = val;
+					document.getElementById("TCEnd").innerHTML = "8-bit two's complement binary";
+					TCCA=bin;
+				}else{
+					document.getElementById("TCStart").innerHTML = "two's complement binary";
+					document.getElementById("TCNum").innerHTML = bin;
+					document.getElementById("TCEnd").innerHTML = "denary";
+					TCCA=val;
+				}		
+			
+			}
+			function checkFL(){				
+				for (var i=0; i<3; i++){
+					if (FLAnsBoxes[i].value.replace(/\s/g, "") == FLCA[i]){
+						FLAnsBoxes[i].className="correct";
+					}
+					else{
+						FLAnsBoxes[i].className="incorrect";
+					}
+				}				
+			
+			}
+			function newFL(){
+				for (var i=0; i<3; i++){
+					FLAnsBoxes[i].className="";
+					FLAnsBoxes[i].value="";
+				}
+				let output = ""
+				
+				if (Math.random()>0.5){
+					FLCA[0]="0";
+				}				
+				else{
+					FLCA[0]="1";
+					output ="-";
+				}
+				
+				FLCA[1] = "1"
+				let bits = Math.floor(Math.random()*15)+1
+				for (var i=0; i<bits; i++){
+					if (Math.random()>0.5){
+						FLCA[1] = FLCA[1] +"0";
+					}				
+					else{
+						FLCA[1] = FLCA[1] +"1";
+					}
+				}
+				FLCA[1] = FLCA[1].padEnd(15,"0");
+				
+				let exp = Math.floor((Math.random()*16))-8;
+				
+				if (exp<0){
+					FLCA[2]=(256+exp).toString(2);
+				}
+				else{
+					FLCA[2]=(exp).toString(2).padStart(8,"0");
+				}
+				
+				if (exp<=0){
+					output=output+"0."+("0".repeat(exp*-1))+FLCA[1];
+				}
+				else{
+					output = output+FLCA[1].slice(0,exp) + "." + FLCA[1].slice(exp)
+				}
+				
+				console.log(FLCA);
+				document.getElementById("FLNum").innerHTML = parseFloat(output);
+				
+			}
+		</script>
+	</head>
+	<body>
+	<header></header>
+	<nav></nav>
+	<main>
+		<section>
+		<h1>Two's Complement</h1>
+		<p>Convert the <span id="TCStart">Two's complement binary</span> number <span id="TCNum">10011001</span> into <span id="TCEnd">denary.</span></p>
+		<input type="text" id="TCAnswer" placeholder="answer"> <button onclick="checkTC()">Check</button>
+		<button onclick="newTC()">New Question</button>
+		</section>
+		
+		<section>
+		<h1>Floating Point</h1>
+		<p>Convert the floating point number <span id="FLNum">100.11001</span> into denary.</p>
+
+		<input type="text" id="FLSignAnswer" placeholder="sign bit">
+		<input type="text" id="FLMantissaAnswer" placeholder="mantissa">
+		<input type="text" id="FLExponentAnswer" placeholder="exponent">
+		<button onclick="checkFL()">Check</button>
+		<button onclick="newFL()">New Question</button>
+		</section>
+		<script>
+			TCAnsBox = document.getElementById("TCAnswer");
+			newTC();
+			FLAnsBoxes = [document.getElementById("FLSignAnswer"),document.getElementById("FLMantissaAnswer"),document.getElementById("FLExponentAnswer")];
+			newFL();
+		</script>
+	</main>
+	</body>	
+</html>
