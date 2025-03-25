@@ -196,7 +196,11 @@
 				}
 				
 				//console.log(FLCA);
-				document.getElementById("FLNum").innerHTML = output.replace(new RegExp("0+$"), "");
+				output = output.replace(new RegExp("0+$"), "");
+				if (output.slice(-1)=="."){
+					output = output+"0";
+				}
+				document.getElementById("FLNum").innerHTML = output;
 				
 			}
 			
