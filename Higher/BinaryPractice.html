@@ -9,6 +9,32 @@
 			.incorrect{
 				background-color:red;
 			}
+			body{
+				background-color:lightgrey;
+			}
+			main{
+				width:50vw;
+				margin:auto;
+			}
+			section{
+				margin-bottom:5vh;
+				background-color:aliceblue;
+				padding:10px;
+				border-radius:10px;
+			}
+			section h1, section div{
+				margin-top:0px;
+				text-align:center;
+			}
+			section div *{				
+				margin:5px;
+			}
+			
+			@media only screen and (max-width: 800px) {
+				  main {
+					width:95vw;
+				  }
+				}
 		</style>
 		<script>
 			var TCCA="";
@@ -99,7 +125,9 @@
 				else{
 					output = output+FLCA[1].slice(0,exp) + "." + FLCA[1].slice(exp)
 				}
-				document.getElementById("FLNum").innerHTML = parseFloat(output);
+				
+				//console.log(FLCA);
+				document.getElementById("FLNum").innerHTML = output.replace(new RegExp("0+$"), "");
 				
 			}
 		</script>
@@ -111,19 +139,27 @@
 		<section>
 		<h1>Two's Complement</h1>
 		<p>Convert the <span id="TCStart">Two's complement binary</span> number <span id="TCNum">10011001</span> into <span id="TCEnd">denary.</span></p>
-		<input type="text" id="TCAnswer" placeholder="answer"> <button onclick="checkTC()">Check</button>
+		<div>
+		<input type="text" id="TCAnswer" placeholder="answer">
+		</div>
+		<div>
+		<button onclick="checkTC()">Check</button>
 		<button onclick="newTC()">New Question</button>
+		</div>
 		</section>
 		
 		<section>
 		<h1>Floating Point</h1>
 		<p>Convert the floating point number <span id="FLNum">100.11001</span> into denary.</p>
-
+		<div>
 		<input type="text" id="FLSignAnswer" placeholder="sign bit">
 		<input type="text" id="FLMantissaAnswer" placeholder="mantissa">
 		<input type="text" id="FLExponentAnswer" placeholder="exponent">
+		</div>
+		<div>
 		<button onclick="checkFL()">Check</button>
 		<button onclick="newFL()">New Question</button>
+		</div>
 		</section>
 		<script>
 			TCAnsBox = document.getElementById("TCAnswer");
