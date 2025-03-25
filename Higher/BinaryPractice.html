@@ -3,6 +3,7 @@
 	<head>
 		<title>Binary Practice</title>
 		<style>
+			
 			.correct{
 				background-color:green;
 			}
@@ -10,14 +11,19 @@
 				background-color:red;
 			}
 			body{
+				
 				background-color:lightgrey;
-			}
-			main{
 				width:50vw;
 				margin:auto;
+				font-family:Arial;
+				font-size:125%;
+			}
+			input, button{
+				font-family:Arial;
+				font-size:110%;
 			}
 			section{
-				margin-bottom:5vh;
+				margin-bottom:10px;
 				background-color:aliceblue;
 				padding:10px;
 				border-radius:10px;
@@ -26,15 +32,78 @@
 				margin-top:0px;
 				text-align:center;
 			}
-			section div *{				
+			input, button{				
 				margin:5px;
+			}
+			main{
+				margin-top:10px;
+			}
+			strong{
+			margin:0px;padding:0px;}
+			/* Popup container */
+			.popup {
+			  position: relative;
+			  display: inline-block;
+			  cursor: pointer;
+			}
+
+			/* The actual popup (appears on top) */
+			.popup .popuptext {
+			  display:block;
+			  visibility: hidden;
+			  width: 50vw;
+			  background-color: #555;
+			  color: #fff;
+			  text-align: center;
+			  border-radius: 6px;
+			  padding: 8px;
+			  position: fixed;
+			  top:25vh;
+			  left:25vw;
+			  z-index: 1;		  
+			  
+			}
+			#FLNum{
+				display:block;
+				text-align:center;
+			}
+			#FLSignAnswer, #FLMantissaAnswer,#FLExponentAnswer{
+				display:inline-block;
+			}
+			#FLSignAnswer{
+				width:20%;
+			}
+			#FLMantissaAnswer{
+				width:70%;
+			}
+			#FLExponentAnswer{
+				width:60%;
+			}
+
+			/* Toggle this class when clicking on the popup container (hide and show the popup) */
+			.popup .show {
+			  visibility: visible;
+			  -webkit-animation: fadeIn 1s;
+			  animation: fadeIn 1s
+			}
+
+			/* Add animation (fade in the popup) */
+			@-webkit-keyframes fadeIn {
+			  from {opacity: 0;}
+			  to {opacity: 1;}
+			}
+
+			@keyframes fadeIn {
+			  from {opacity: 0;}
+			  to {opacity:1 ;}
 			}
 			
 			@media only screen and (max-width: 800px) {
-				  main {
+				body {
 					width:95vw;
-				  }
 				}
+			}
+			
 		</style>
 		<script>
 			var TCCA="";
@@ -130,6 +199,12 @@
 				document.getElementById("FLNum").innerHTML = output.replace(new RegExp("0+$"), "");
 				
 			}
+			
+			// When the user clicks on <div>, open the popup
+			function popup(id) {
+			  var popup = document.getElementById(id);
+			  popup.classList.toggle("show");
+			}
 		</script>
 	</head>
 	<body>
@@ -137,6 +212,7 @@
 	<nav></nav>
 	<main>
 		<section>
+		
 		<h1>Two's Complement</h1>
 		<p>Convert the <span id="TCStart">Two's complement binary</span> number <span id="TCNum">10011001</span> into <span id="TCEnd">denary.</span></p>
 		<div>
@@ -146,11 +222,16 @@
 		<button onclick="checkTC()">Check</button>
 		<button onclick="newTC()">New Question</button>
 		</div>
+		<div class="popup" onclick="popup('TCPopup')">Help!
+		  <span class="popuptext" id="TCPopup">Two's complement works the same as standard binary, except the highest column value becomes negative.<br><br>For 8-bit, start with the standard binary position values:<br> 128, 64, 32, 16, 8, 4, 2, 1<br><br>Then make the 128 negative, the rest stay positive:<br> -128, 64, 32, 16, 8, 4, 2, 1<br><br>If you're converting denary to binary, work out which of the numbers need to add together to make the target. Remember that 1111 1111 is -1, this can help for smaller numbers.<br><br>If you're converting binary to denary, then add together the position values for all the 1s.</span>
+		</div>
 		</section>
 		
 		<section>
 		<h1>Floating Point</h1>
-		<p>Convert the floating point number <span id="FLNum">100.11001</span> into denary.</p>
+		<p>Convert the binary number below into floating-point representation.</p>
+			<span id="FLNum">100.11001</span>
+		<p>There are 16 bits for the mantissa (including the sign bit) and 8 bits for the exponent.</p>
 		<div>
 		<input type="text" id="FLSignAnswer" placeholder="sign bit">
 		<input type="text" id="FLMantissaAnswer" placeholder="mantissa">
@@ -159,6 +240,15 @@
 		<div>
 		<button onclick="checkFL()">Check</button>
 		<button onclick="newFL()">New Question</button>
+		</div>
+		<div class="popup" onclick="popup('FLPopup')">Help!
+		  <span class="popuptext" id="FLPopup">
+		  The Sign is 1 for a negative number, 0 for a positive.<br><br>
+		  The Mantissa is the digits of the number, from the first to the last 1, padded with trailing 0s to make 15 bits (16 when you include the sign).<br><br>
+		  The exponent is the tricky mark. You need to count the number of digits the point has moved, assuming it started on the left of the first 1 in the number. If the point has moved to the left, the exponent is negative. If the point has moved to the right, it's positive.<br><br>
+		  0.<strong>000</strong>101 has an exponent of -3, as there are 3 0s between the point and the first 1.	<br><br>
+		  <strong>10010</strong>.011 has an exponent of 5, as there are 5 digits before the point.
+		  </span>
 		</div>
 		</section>
 		<script>
