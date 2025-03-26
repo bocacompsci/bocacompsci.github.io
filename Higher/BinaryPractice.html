@@ -130,7 +130,9 @@
 			}
 		
 			var TCCount = getCookie('TCCount');
-			var FLCount = getCookie('FLCount');		
+			var FLCount = getCookie('FLCount');	
+			var TCQRunning;
+			var FLQRunning;
 		  
 			var TCCA="";
 			var FLCA=["","",""];
@@ -140,18 +142,24 @@
 			var FLStreakBox; 
 			
 			function checkTC(){
-				if (TCAnsBox.value.replace(/\s/g, "") == TCCA){
+				
+				if (TCAnsBox.value.replace(/\s/g, "") == TCCA ){
 					TCAnsBox.className="correct";
-					TCCount = TCCount+1;
+					if (TCQRunning){
+						TCCount = TCCount+1;
+					}
 				}
 				else{
 					TCAnsBox.className="incorrect";
 					TCCount = 0;
+					
 				}				
 				setCookie('TCCount', TCCount, 30);
 				TCStreakBox.innerHTML = TCCount;
+				TCQRunning = false;
 			}
 			function newTC(){
+				TCQRunning = true;
 				TCAnsBox.className="";
 				TCAnsBox.value="";
 				
@@ -184,16 +192,19 @@
 						FLAnsBoxes[i].className="incorrect";
 					}
 				}
-				if (c==3){
+				
+				if (c==3 && FLQRunning){
 					FLCount++;
 				}
 				else{
 					FLCount = 0;
 				}
+				FLQRunning = false;
 				setCookie('FLCount', FLCount, 30);
 				FLStreakBox.innerHTML = FLCount;
 			}
 			function newFL(){
+				FLQRunning = true;
 				for (var i=0; i<3; i++){
 					FLAnsBoxes[i].className="";
 					FLAnsBoxes[i].value="";
