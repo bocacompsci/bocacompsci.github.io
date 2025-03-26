@@ -129,8 +129,8 @@
 				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 			}
 		
-			var TCCount = getCookie('TCCount');
-			var FLCount = getCookie('FLCount');	
+			var TCCount = parseInt(getCookie('TCCount'));
+			var FLCount = parseInt(getCookie('FLCount'));	
 			var TCQRunning;
 			var FLQRunning;
 		  
@@ -146,7 +146,7 @@
 				if (TCAnsBox.value.replace(/\s/g, "") == TCCA ){
 					TCAnsBox.className="correct";
 					if (TCQRunning){
-						TCCount = TCCount+1;
+						TCCount ++;
 					}
 				}
 				else{
