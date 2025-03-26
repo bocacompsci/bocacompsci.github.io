@@ -115,7 +115,7 @@
 			}
 		
 			var count = getCookie('count');		
-		  
+			var running;
 			var answer="";
 			var AnsBox;
 			var StreakBox;  
@@ -123,19 +123,22 @@
 			function checkAnswer(){
 				if (AnsBox.value.replace(/\s/g, "") == answer){
 					AnsBox.className="correct";
+					if (running){
 					count = count+1;
+					}
 				}
 				else{
 					AnsBox.className="incorrect";
 					count = 0;
-				}				
+				}
+				running= false;
 				setCookie('count', count, 30);
 				StreakBox.innerHTML = count;
 			}
 			function newQuestion(){
 				AnsBox.className="";
 				AnsBox.value="";
-				
+				running = true;
 				let val = (Math.floor((Math.random()*255) + 1));
 				let bin = val.toString(2).padStart(8, "0");
 				
@@ -178,7 +181,8 @@
 		</div>
 		<div id="streak">Streak: <span id="count"></span></div>
 		<div class="popup" onclick="popup('Popup')">Help!
-		  <span class="popuptext" id="Popup">Start with the standard binary position values:<br> 128, 64, 32, 16, 8, 4, 2, 1<br><br>If you're converting denary to binary, work out which of the numbers need to add together to make the target.<br><br>Remember that the lower numbers add up to one less than the next higher number. 4+2+1 = 7, 8+4+2+1 = 15<br><br>If you're converting binary to denary, then add together the position values for all the 1s.</div>
+		  <span class="popuptext" id="Popup">Start with the standard binary position values:<br> 128, 64, 32, 16, 8, 4, 2, 1<br><br>If you're converting denary to binary, work out which of the numbers need to add together to make the target.<br><br>Remember that the lower numbers add up to one less than the next higher number. 4+2+1 = 7, 8+4+2+1 = 15<br><br>If you're converting binary to denary, then add together the position values for all the 1s.</span>
+		</div>
 		</section>
 		
 		<script>
