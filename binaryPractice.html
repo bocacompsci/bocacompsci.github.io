@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Binary Practice</title>
+		<style>
+			
+			.correct{
+				background-color:green;
+			}
+			.incorrect{
+				background-color:red;
+			}
+			body{
+				
+				background-color:lightgrey;
+				font-family:Arial;
+				font-size:125%;
+			}
+			input, button{
+				font-family:Arial;
+				font-size:110%;
+			}
+			section{
+				width:45vw;
+				float:left;
+				margin:1vw;
+				background-color:aliceblue;
+				padding:10px;
+				border-radius:10px;
+			}
+			section h1, section div{
+				margin-top:0px;
+				text-align:center;
+			}
+			input, button{				
+				margin:5px;
+			}
+			main{
+				margin-top:10px;
+			}
+			strong{
+			margin:0px;padding:0px;}
+			/* Popup container */
+			.popup {
+			  position: relative;
+			  display: inline-block;
+			  cursor: pointer;
+			}
+
+			/* The actual popup (appears on top) */
+			.popup .popuptext {
+			  display:block;
+			  visibility: hidden;
+			  width: 50vw;
+			  background-color: #555;
+			  color: #fff;
+			  text-align: center;
+			  border-radius: 6px;
+			  padding: 8px;
+			  position: fixed;
+			  top:10vh;
+			  left:25vw;
+			  z-index: 1;		  
+			  
+			}
+		
+
+			/* Toggle this class when clicking on the popup container (hide and show the popup) */
+			.popup .show {
+			  visibility: visible;
+			  -webkit-animation: fadeIn 1s;
+			  animation: fadeIn 1s
+			}
+
+			/* Add animation (fade in the popup) */
+			@-webkit-keyframes fadeIn {
+			  from {opacity: 0;}
+			  to {opacity: 1;}
+			}
+
+			@keyframes fadeIn {
+			  from {opacity: 0;}
+			  to {opacity:1 ;}
+			}
+			
+			@media only screen and (max-width: 1000px) {
+				section{
+					width:92vw;
+					float:none;
+				}
+			}
+			
+		</style>
+		<script>
+			function getCookie(cname) {
+				let name = cname + "=";
+				let decodedCookie = decodeURIComponent(document.cookie);
+				let ca = decodedCookie.split(';');
+				for(let i = 0; i <ca.length; i++) {
+					let c = ca[i];
+					while (c.charAt(0) == ' ') {
+						c = c.substring(1);
+					}
+					if (c.indexOf(name) == 0) {
+						return c.substring(name.length, c.length);
+					}
+				}
+				return 0;
+			}
+			function setCookie(cname, cvalue, exdays) {
+				const d = new Date();
+				d.setTime(d.getTime() + (exdays*24*60*60*1000));
+				let expires = "expires="+ d.toUTCString();
+				document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+			}
+		
+			var count = getCookie('count');		
+		  
+			var answer="";
+			var AnsBox;
+			var StreakBox;  
+			
+			function checkAnswer(){
+				if (AnsBox.value.replace(/\s/g, "") == answer){
+					AnsBox.className="correct";
+					count = count+1;
+				}
+				else{
+					AnsBox.className="incorrect";
+					count = 0;
+				}				
+				setCookie('count', count, 30);
+				StreakBox.innerHTML = count;
+			}
+			function newQuestion(){
+				AnsBox.className="";
+				AnsBox.value="";
+				
+				let val = (Math.floor((Math.random()*255) + 1));
+				let bin = val.toString(2).padStart(8, "0");
+				
+				if (Math.random()>0.5){
+					document.getElementById("Start").innerHTML = "denary";
+					document.getElementById("Num").innerHTML = val;
+					document.getElementById("End").innerHTML = "8-bit binary";
+					answer=bin;
+				}else{
+					document.getElementById("Start").innerHTML = "binary";
+					document.getElementById("Num").innerHTML = bin;
+					document.getElementById("End").innerHTML = "denary";
+					answer=val;
+				}		
+			
+			}
+			
+			
+			// When the user clicks on <div>, open the popup
+			function popup(id) {
+			  var popup = document.getElementById(id);
+			  popup.classList.toggle("show");
+			}
+		</script>
+	</head>
+	<body>
+	<header></header>
+	<nav></nav>
+	<main>
+		<section>
+		
+		<h1>Binary</h1>
+		<p>Convert the <span id="Start">binary</span> number <span id="Num">10011001</span> into <span id="End">denary.</span></p>
+		<div>
+		<input type="text" id="Answer" placeholder="answer">
+		</div>
+		<div>
+		<button onclick="checkAnswer()">Check</button>
+		<button onclick="newQuestion()">New Question</button>
+		</div>
+		<div id="streak">Streak: <span id="count"></span></div>
+		<div class="popup" onclick="popup('Popup')">Help!
+		  <span class="popuptext" id="Popup">Two's complement works the same as standard binary, except the highest column value becomes negative.<br><br>For 8-bit, start with the standard binary position values:<br> 128, 64, 32, 16, 8, 4, 2, 1<br><br>Then make the 128 negative, the rest stay positive:<br> -128, 64, 32, 16, 8, 4, 2, 1<br><br>If you're converting denary to binary, work out which of the numbers need to add together to make the target. Remember that 1111 1111 is -1, this can help for smaller numbers.<br><br>If you're converting binary to denary, then add together the position values for all the 1s.</span>
+		</div>
+		</section>
+		
+		<script>
+			AnsBox = document.getElementById("Answer");
+			newQuestion();
+			StreakBox = document.getElementById('count')
+			StreakBox.innerHTML = count;
+		</script>
+	</main>
+	</body>	
+</html>
