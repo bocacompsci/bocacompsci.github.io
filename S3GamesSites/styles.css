@@ -1,0 +1,39 @@
+body{
+	background-color:lightgray;
+	font-family: 'Courier New', monospace; 
+	}
+
+nav{
+	background-color:483D8B;
+	text-align:center;
+}
+nav a{
+	
+  color:black;
+  background-color:lightpurple;
+  font-weight: bold;
+  margin-right:50px;
+}
+header {
+	text-align:center;
+	vertical-align:middle;
+background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNC60lTO3H3NPZxiPlg1nkO3LyeNnMRNOTXQ&s");
+background-size:auto 100%;
+border-radius: 50px;
+}
+header img{
+		vertical-align:middle;
+		margin:0px;
+}
+
+.leftImg{
+	float:left;
+	margin-bottom:40px;
+	}
+
+br, footer{
+	clear:both;
+}
+p {
+  font-size:20px;
+}
